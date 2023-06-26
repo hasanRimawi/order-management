@@ -4,21 +4,19 @@ import java.time.LocalDateTime;
 
 public class OrderDTO {
 	private Long id;
-	private int quantity;
-	private LocalDateTime updatedAt;
+	private LocalDateTime orderedAt;
 	private Long customer_id;
 
 	public OrderDTO() {
 
 	}
 
-	public OrderDTO(int quantity, LocalDateTime updatedAt, Long customer_id) {
+	public OrderDTO(LocalDateTime orderedAt, Long customer_id) {
 		super();
-		this.quantity = quantity;
-		this.updatedAt = updatedAt;
+		this.orderedAt = orderedAt;
 		this.customer_id = customer_id;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -27,20 +25,12 @@ public class OrderDTO {
 		this.id = id;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public LocalDateTime getOrderedAt() {
+		return orderedAt;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setOrderedAt(LocalDateTime orderedAt) {
+		this.orderedAt = orderedAt;
 	}
 
 	public Long getCustomer_id() {

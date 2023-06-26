@@ -38,8 +38,7 @@ public class Mappers {
 	public OrderDTO entityToOrderDTO(Order order) {
 		OrderDTO temp = new OrderDTO();
 		temp.setCustomer_id(order.getCustomer().getId());
-		temp.setQuantity(order.getQuantity());
-		temp.setUpdatedAt(order.getUpdatedAt());
+		temp.setOrderedAt(order.getOrderedAt());
 		temp.setId(order.getId());
 		return temp;
 	}

@@ -45,12 +45,6 @@ public class OrderController {
 		return new ResponseEntity<OrderDTO>(orderService.addOrder(order), HttpStatus.CREATED);
 	}
 
-	@PatchMapping
-	public ResponseEntity<OrderDTO> updateOrderQuantity(@RequestParam(name = "id") Long id,
-			@RequestParam(name = "quantity") int quantity) {
-		return new ResponseEntity<OrderDTO>(orderService.updateQuantity(quantity, id), HttpStatus.OK);
-	}
-
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletOrder(@PathVariable Long id) {
 		orderService.deleteOrder(id);

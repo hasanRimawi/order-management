@@ -20,8 +20,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	private int quantity;
-	private LocalDateTime updatedAt;
+	private LocalDateTime orderedAt;
 
 	@ManyToOne
 	@JoinColumn(name = "customerId", referencedColumnName = "id")
@@ -34,23 +33,20 @@ public class Order {
 
 	}
 
-	public Order(int quantity, LocalDateTime updatedAt) {
+	public Order(int quantity, LocalDateTime orderedAt) {
 		super();
-		this.quantity = quantity;
-		this.updatedAt = updatedAt;
+		this.orderedAt = orderedAt;
 	}
 
-	public Order(int quantity, LocalDateTime updatedAt, Customer customer) {
+	public Order(LocalDateTime orderedAt, Customer customer) {
 		super();
-		this.quantity = quantity;
-		this.updatedAt = updatedAt;
+		this.orderedAt = orderedAt;
 		this.customer = customer;
 	}
 
-	public Order(int quantity, LocalDateTime updatedAt, Customer customer, List<Product_Order> product_order) {
+	public Order(LocalDateTime orderedAt, Customer customer, List<Product_Order> product_order) {
 		super();
-		this.quantity = quantity;
-		this.updatedAt = updatedAt;
+		this.orderedAt = orderedAt;
 		this.customer = customer;
 		this.product_order = product_order;
 	}
@@ -71,20 +67,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public LocalDateTime getOrderedAt() {
+		return orderedAt;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setOrderedAt(LocalDateTime orderedAt) {
+		this.orderedAt = orderedAt;
 	}
 
 	public List<Product_Order> getProduct_order() {

@@ -30,13 +30,13 @@ public class StockController {
 		return new ResponseEntity<List<StockDTO>>(stockService.getAllStock(), HttpStatus.OK);
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/{id}")
 	public ResponseEntity<StockDTO> getStockById(@PathVariable Long id) {
 		return new ResponseEntity<StockDTO>(stockService.getStockById(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/ofProduct/{id}")
-	public ResponseEntity<List<StockDTO>> getStocksOfProduct(@PathVariable Long productId) {
+	public ResponseEntity<List<StockDTO>> getStocksOfProduct(@PathVariable(name = "id") Long productId) {
 		return new ResponseEntity<List<StockDTO>>(stockService.getStocksByProductId(productId), HttpStatus.OK);
 	}
 

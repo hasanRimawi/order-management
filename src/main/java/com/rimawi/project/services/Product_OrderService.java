@@ -57,7 +57,8 @@ public class Product_OrderService {
 				.orElseThrow(() -> new NotFoundException("Product", element.getProduct_id()));
 		Product_Order product_order = new Product_Order(element.getQuantity(), element.getPrice(), element.getVat(),
 				order, product);
-		return mapper.entityToProductOrderDTO(product_order);
+		
+		return mapper.entityToProductOrderDTO(proOrdRepo.save(product_order));
 	}
 
 	public Product_OrderDTO updateProduct_Order(Product_OrderDTO element, Long id) {
