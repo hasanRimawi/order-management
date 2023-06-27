@@ -10,10 +10,13 @@ import com.rimawi.project.DTOs.Product_OrderDTO;
 import com.rimawi.project.entity.Order;
 import com.rimawi.project.entity.Product;
 import com.rimawi.project.entity.Product_Order;
+import com.rimawi.project.entity.Stock;
+import com.rimawi.project.exceptions.LowStockException;
 import com.rimawi.project.exceptions.NotFoundException;
 import com.rimawi.project.repositories.OrderRepository;
 import com.rimawi.project.repositories.ProductRepository;
 import com.rimawi.project.repositories.Product_OrderRepository;
+import com.rimawi.project.repositories.StockRepository;
 
 @Service
 public class Product_OrderService {
@@ -26,6 +29,9 @@ public class Product_OrderService {
 
 	@Autowired
 	private ProductRepository productRepo;
+
+	@Autowired
+	private StockRepository stockRepository;
 
 	@Autowired
 	private Mappers mapper;
@@ -51,13 +57,17 @@ public class Product_OrderService {
 	}
 
 	public Product_OrderDTO addProductOrder(Product_OrderDTO element) {
-		Order order = orderRepo.findById(element.getOrder_id())
-				.orElseThrow(() -> new NotFoundException("Order", element.getOrder_id()));
 		Product product = productRepo.findById(element.getProduct_id())
 				.orElseThrow(() -> new NotFoundException("Product", element.getProduct_id()));
+		Long stock_id = stockRepository.stockSufficientQuantity(element.getQuantity(), element.getProduct_id());
+		if (stock_id == null) {
+			throw new LowStockException(element.getProduct_id());
+		}
+		Order order = orderRepo.findById(element.getOrder_id())
+				.orElseThrow(() -> new NotFoundException("Order", element.getOrder_id()));
 		Product_Order product_order = new Product_Order(element.getQuantity(), element.getPrice(), element.getVat(),
 				order, product);
-		
+		reduceStockQuantity(stock_id, element.getQuantity());
 		return mapper.entityToProductOrderDTO(proOrdRepo.save(product_order));
 	}
 
@@ -80,5 +90,12 @@ public class Product_OrderService {
 			proOrdRepo.deleteById(id);
 		else
 			throw new NotFoundException("Product Order", id);
+	}
+
+	private void reduceStockQuantity(Long id, int consumed) {
+		Stock temp = stockRepository.findById(id).orElseThrow(() -> new NotFoundException("Stock", id));
+		int newQuantity = temp.getQuantity() - consumed;
+		temp.setQuantity(newQuantity);
+		stockRepository.save(temp);
 	}
 }

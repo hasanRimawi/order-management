@@ -19,7 +19,7 @@ import com.rimawi.project.DTOs.OrderDTO;
 import com.rimawi.project.services.OrderService;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/v1/orders")
 public class OrderController {
 
 	@Autowired
@@ -35,9 +35,9 @@ public class OrderController {
 		return new ResponseEntity<OrderDTO>(orderService.getOrderById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/ofCustomer/{id}")
-	public ResponseEntity<List<OrderDTO>> getCustomerOrders(@PathVariable Long id) {
-		return new ResponseEntity<List<OrderDTO>>(orderService.getCustomerOrders(id), HttpStatus.OK);
+	@GetMapping("/{customer_id}/customer")
+	public ResponseEntity<List<OrderDTO>> getCustomerOrders(@PathVariable Long customer_id) {
+		return new ResponseEntity<List<OrderDTO>>(orderService.getCustomerOrders(customer_id), HttpStatus.OK);
 	}
 
 	@PostMapping

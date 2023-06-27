@@ -24,6 +24,7 @@ public class Mappers {
 		temp.setFirstName(customer.getFirstName());
 		temp.setLastName(customer.getLastName());
 		temp.setId(customer.getId());
+		temp.setUsername(customer.getUsername());
 		return temp;
 	}
 
@@ -32,6 +33,8 @@ public class Mappers {
 		temp.setBornAt(customer.getBornAt());
 		temp.setFirstName(customer.getFirstName());
 		temp.setLastName(customer.getLastName());
+		temp.setUsername(customer.getUsername());
+		temp.setPassword(customer.getPassword());
 		return temp;
 	}
 

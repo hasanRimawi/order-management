@@ -4,14 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.rimawi.project.DTOs.CustomerDTO;
 import com.rimawi.project.entity.Customer;
 import com.rimawi.project.exceptions.NotFoundException;
+import com.rimawi.project.exceptions.UserNameUsedException;
 import com.rimawi.project.repositories.CustomerRepository;
+
 @Service
-public class CustomerService {
+public class CustomerService implements UserDetailsService {
 	@Autowired
 	private CustomerRepository customerRepo;
 
@@ -28,6 +33,9 @@ public class CustomerService {
 	}
 
 	public CustomerDTO addCustomer(CustomerDTO customer) {
+		if(customerRepo.findByUsername(customer.getUsername()) != null) {
+			throw new UserNameUsedException(customer.getUsername());
+		}
 		Customer temp = mapper.customerDtoToEntity(customer);
 		return mapper.entityToCustomerDTO(customerRepo.save(temp));
 	}
@@ -47,4 +55,13 @@ public class CustomerService {
 		return mapper.entityToCustomerDTO(customerRepo.save(temp));
 	}
 
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		Customer x = customerRepo.findByUsername(username);
+		if (x == null) {
+			throw new UsernameNotFoundException(username);
+		} else {
+			return x;
+		}
+	}
 }

@@ -18,7 +18,7 @@ import com.rimawi.project.DTOs.Product_OrderDTO;
 import com.rimawi.project.services.Product_OrderService;
 
 @RestController
-@RequestMapping("/productsOrder")
+@RequestMapping("/v1/productsOrder")
 public class Product_OrderController {
 
 	@Autowired
@@ -34,14 +34,16 @@ public class Product_OrderController {
 		return new ResponseEntity<Product_OrderDTO>(proOrdService.getProductOrderById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/ofOrder/{id}")
-	public ResponseEntity<List<Product_OrderDTO>> getOrderProductsOfOrder(@PathVariable Long id) {
-		return new ResponseEntity<List<Product_OrderDTO>>(proOrdService.getOrderProductsOfOrder(id), HttpStatus.OK);
+	@GetMapping("/{orderId}/order")
+	public ResponseEntity<List<Product_OrderDTO>> getOrderProductsOfOrder(@PathVariable Long orderId) {
+		return new ResponseEntity<List<Product_OrderDTO>>(proOrdService.getOrderProductsOfOrder(orderId),
+				HttpStatus.OK);
 	}
 
-	@GetMapping("/ofProduct/{id}")
-	public ResponseEntity<List<Product_OrderDTO>> getOrderProductsOfProduct(@PathVariable Long id) {
-		return new ResponseEntity<List<Product_OrderDTO>>(proOrdService.getOrderProductsOfProduct(id), HttpStatus.OK);
+	@GetMapping("/{productId}/product")
+	public ResponseEntity<List<Product_OrderDTO>> getOrderProductsOfProduct(@PathVariable Long productId) {
+		return new ResponseEntity<List<Product_OrderDTO>>(proOrdService.getOrderProductsOfProduct(productId),
+				HttpStatus.OK);
 	}
 
 	@PostMapping

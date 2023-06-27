@@ -16,4 +16,5 @@ public interface Product_OrderRepository extends JpaRepository<Product_Order, Lo
 
 	@Query(value = "SELECT * FROM product_order o WHERE o.product_id = :productId", nativeQuery = true)
 	public List<Product_Order> findProductOrderByProductId(@Param("productId") Long productId);
+
 }

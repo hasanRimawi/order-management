@@ -18,7 +18,7 @@ import com.rimawi.project.DTOs.ProductDTO;
 import com.rimawi.project.services.ProductService;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/v1/products")
 public class ProductController {
 
 	@Autowired

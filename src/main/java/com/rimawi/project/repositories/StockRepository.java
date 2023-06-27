@@ -13,4 +13,7 @@ import com.rimawi.project.entity.Stock;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 	@Query(value = "SELECT * FROM stock o WHERE o.product_id = :productId", nativeQuery = true)
 	public List<Stock> findStockByProductId(@Param("productId") Long productId);
+
+	@Query(value = "SELECT s.id FROM stock s WHERE s.quantity >= :products AND s.product_id = :productId ORDER BY s.id ASC LIMIT 1", nativeQuery = true)
+	public Long stockSufficientQuantity(@Param("products") int products, @Param("productId") Long productId);
 }

@@ -18,7 +18,7 @@ import com.rimawi.project.DTOs.CustomerDTO;
 import com.rimawi.project.services.CustomerService;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/v1/customers")
 public class CustomerController {
 
 	@Autowired
@@ -36,11 +36,11 @@ public class CustomerController {
 		return new ResponseEntity<CustomerDTO>(customer, HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customer) {
-		CustomerDTO addedCustomer = customerService.addCustomer(customer);
-		return new ResponseEntity<CustomerDTO>(addedCustomer, HttpStatus.CREATED);
-	}
+//	@PostMapping
+//	public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customer) {
+//		CustomerDTO addedCustomer = customerService.addCustomer(customer);
+//		return new ResponseEntity<CustomerDTO>(addedCustomer, HttpStatus.CREATED);
+//	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customer,

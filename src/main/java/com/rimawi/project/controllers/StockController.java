@@ -19,7 +19,7 @@ import com.rimawi.project.DTOs.StockDTO;
 import com.rimawi.project.services.StockService;
 
 @RestController
-@RequestMapping("/stocks")
+@RequestMapping("/v1/stocks")
 public class StockController {
 
 	@Autowired
@@ -35,8 +35,8 @@ public class StockController {
 		return new ResponseEntity<StockDTO>(stockService.getStockById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/ofProduct/{id}")
-	public ResponseEntity<List<StockDTO>> getStocksOfProduct(@PathVariable(name = "id") Long productId) {
+	@GetMapping("/{productId}/product")
+	public ResponseEntity<List<StockDTO>> getStocksOfProduct(@PathVariable(name = "productId") Long productId) {
 		return new ResponseEntity<List<StockDTO>>(stockService.getStocksByProductId(productId), HttpStatus.OK);
 	}
 
