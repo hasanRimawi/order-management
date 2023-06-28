@@ -24,9 +24,9 @@ PS. 1) It's assumed that the sql server will be run as a container.
   9) COPY src ./src : this command copies all the src folder to the /special directory.
   10) CMD ["./mvnw", "spring-boot:run"] : this command is run when the container starts and it starts the application within the container.
 
-  *Then in order to build the container: docker build -t hasanalrimawi/ordermanagement:v1.0 .
-  *And in order to push the image to the dockerhub: docker push hasanalrimawi/order-management:v1.0
-  *And in order to run the image -> container, after making a network within docker so that the two containers of the app and the database container can communicate: docker run --name order-management -d -e SERVER_NAME=sqlServerV --network=com -p 8080:8080 hasanalrimawi/order-management:v1.0
+  *Then in order to build the container: docker build -t hasanalrimawi/ordermanagement:v1.1 .
+  *And in order to push the image to the dockerhub: docker push hasanalrimawi/order-management:v1.1
+  *And in order to run the image -> container, after making a network within docker so that the two containers of the app and the database container can communicate: docker run --name order-management -d -e SERVER_NAME=sqlServerV --network=com -p 8080:8080 hasanalrimawi/order-management:v1.1
   *But before it, an instance of mysql container should be up and running, the following command can be used:
     "docker run --name sqlServerV -p 3306:3306 --network=com -e MYSQL_ROOT_PASSWORD=guest --mount source=myDB,target=/var/liv/mysql mysql"
   then these commands:
