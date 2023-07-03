@@ -33,3 +33,12 @@ PS. 1) It's assumed that the sql server will be run as a container.
   "docker exec -it sqlServerV bash"
   "mysql --user=root --password=guest"
   "create database project_hasan;"
+
+
+
+  # Usage:
+  1) first you need to register a new customer.
+  2) You need to authenticate the user to get the token.
+  3) the preceding two points APIs are included in the postman collection
+  4) The customer has been given the privilege to enter all endpoints, the better scenario is to include a manager to access the stock and products and customers management, but the UML was followed and it didn't include manager.
+  5) Adding a manager entity will lead to configuring the HttpMatcher within the security configuration using the hasAuthority, and then the customer will just be given the access to register, authenticate and productOrder and order APIs only. The access to stock, product and Customer APIs should be exclusive to the manager.
