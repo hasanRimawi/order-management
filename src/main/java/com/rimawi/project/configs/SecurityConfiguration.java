@@ -28,8 +28,8 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeHttpRequests()
-				.requestMatchers("/v1/gate/authenticate", "/v1/gate/register", "/swagger-ui/index.html").permitAll()
-//				.requestMatchers("/**").hasAuthority("CUSTOMER")
+				.requestMatchers("/v1/gate/authenticate", "/v1/gate/register", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+				.requestMatchers("/**").hasAuthority("CUSTOMER")
 				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
